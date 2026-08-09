@@ -32,6 +32,14 @@ class StepStatus(str, Enum):
 
 
 @dataclass
+class GeneratedFile:
+    """A single file produced by the Code Gen Agent for a step."""
+
+    path: str
+    content: str
+
+
+@dataclass
 class TaskStep:
     """A single planned unit of work, from SDD §5.2."""
 
@@ -39,7 +47,7 @@ class TaskStep:
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     status: StepStatus = StepStatus.PENDING
     attempt_count: int = 0
-    generated_code: str | None = None
+    generated_files: list[GeneratedFile] = field(default_factory=list)
 
 
 @dataclass
@@ -85,5 +93,6 @@ class Task:
     repo_url: str | None = None
     branch_name: str | None = None
     pr_url: str | None = None
+    workspace_dir: str | None = None
     steps: list[TaskStep] = field(default_factory=list)
     events: list[TaskEvent] = field(default_factory=list)

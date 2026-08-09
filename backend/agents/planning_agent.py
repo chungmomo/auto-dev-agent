@@ -1,7 +1,9 @@
 """Planning agent: turns a user prompt into a task breakdown (SDD §3.2, step 2).
 
 Phase 1 uses a mock implementation so the orchestrator flow can be exercised
-without a Claude API key. The real Claude-backed agent is SDD §12 step 3.
+without a Claude API key. The real Claude-backed agent lives in
+backend/agents/claude_planning_agent.py (SDD §12 step 3) — kept out of this file so
+the mock path never needs the anthropic/pydantic packages installed.
 """
 
 from __future__ import annotations
